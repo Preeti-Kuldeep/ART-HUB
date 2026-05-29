@@ -1,0 +1,82 @@
+.product-detail-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: start;
+    padding: 50px;
+}
+
+.product-image img {
+    width: 400px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.product-info {
+    max-width: 500px;
+    padding-left: 40px;
+}
+
+.product-info h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.price {
+    color: #FF6584;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.description {
+    margin: 20px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.seller-info {
+    margin-top: 30px;
+    background: #eee;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #6C63FF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.profile-section {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+.image-edit-block {
+    position: relative;
+}
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+.edit-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #6C63FF;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-size: 12px;
+    border-radius: 6px;
+}
+.upload-btn {
+    background: #6C63FF;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+}

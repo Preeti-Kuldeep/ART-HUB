@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ART HUB</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Static CSS -->
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/seller.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+
+    <!-- Optional JS -->
+    <script src="{% static 'js/home.js' %}" defer></script>
+    <script src="{% static 'js/seller.js' %}" defer></script>
+</head>
+
+<body>
+    <!-- Notification Box -->
+<div id="notification"></div>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/logo.jpg' %}" alt="ART HUB Logo">
+        </div>
+
+            <ul class="nav-links" style="padding-right: 0px; padding-left: 50%;">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'seller_list' %}">Seller</a></li>
+            <li><a href="{% url 'shop' %}">Shop</a></li>
+           <!-- <li><a href="{% url 'home' %}#about-section">About Us</a></li>-->
+            <li><a href="{% url 'view_cart' %}" class="cart-icon"><i class="fas fa-shopping-cart"></i></a></li>
+            
+ <li>
+    {% if user.is_authenticated %}
+    <div class="user-menu">
+        <i class="fas fa-user-circle"></i>
+        <div class="user-info">
+            <span class="user-name">{{ user.name }}</span>
+            <div class="dropdown-content">
+                  {% if user.user_type == "artist" or user.user_type == "shopkeeper" %}
+                    <a href="{% url 'seller_profile' %}">View Profile</a>
+                  {% elif user.user_type == "buyer" %}
+                    <a href="{% url 'view_cart' %}">View Profile</a>
+                  {% endif %}
+                    <a href="{% url 'logout' %}">Logout</a>
+            </div>
+
+        </div>
+    </div>
+
+{% else %}
+    <a href="{% url 'login' %}" class="login-icon">
+        <i class="fas fa-user"></i> Login / Signup
+    </a>
+{% endif %}
+
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content from Child Template -->
+    {% block content %}
+        {% if product.id %}
+            <a href="{% url 'product_detail' product.id %}">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            </a>
+        {% else %}
+            <p>Product not saved yet</p>
+        {% endif %}
+    {% endblock %}
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 ART HUB. All rights reserved.</p>
+    </footer>
+
+    <!-- Django messages passed as JS array -->
+    <script>
+        window.DJANGO_MESSAGES = [
+            {% for message in messages %}
+                "{{ message|escapejs }}"{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+    </script>
+
+    <!-- Your custom script file -->
+    <script src="{% static 'js/base.js' %}" defer></script>
+</body>
+</html>

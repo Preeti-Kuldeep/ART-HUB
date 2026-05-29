@@ -1,0 +1,42 @@
+.container {
+    padding: 30px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.container h2 {
+    font-size: 28px;
+    color: #2D2D2D;
+}
+
+a {
+    text-decoration: none;
+    background-color:white;
+    color:black;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.gallery-item {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}

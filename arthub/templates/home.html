@@ -1,0 +1,119 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ART HUB</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <script src="{% static 'js/home.js' %}" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <div 
+         class="logo"><img src="{% static 'images/logo.jpg' %}"  alt="Logo">
+    </div>
+    <ul class="nav-links">
+        <li><a href="{% url 'seller_list' %}">Seller</a></li>
+        <!--<li><a href="#">About Us</a></li>-->
+        <li><a href="{% url 'shop' %}">Shop</a></li>
+        <li><a href="{% url 'view_cart' %}" class="cart-icon"><i class="fas fa-shopping-cart"></i></a></li>
+        <li><a href="{% url 'login' %}" class="login-icon"><i class="fas fa-user"></i></a></li>
+    </ul>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Discover & Buy Unique Art</h1>
+        <p>Original paintings, digital art, and handcrafted pieces</p>
+        <a href="{% url 'shop' %}" class="shop-now-btn">Shop Now</a>
+
+    </div>
+    <div class="hero-slider">
+        <div class="slider">
+            <img src="{% static 'images/arthub-images/p1.jpg' %}" class="active">
+            <img src="{% static 'images/arthub-images/p2.jpg' %}">
+            <img src="{% static 'images/arthub-images/p3.jpg' %}">
+        </div>
+    </div>
+</section>
+
+<section class="gallery">
+    <h2>Featured Products</h2>
+    <div class="gallery-grid">
+        {% for product in products %}
+        <div class="gallery-item">
+            <a href="{% url 'product_detail' product.id %}">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            </a>
+
+            <div class="product-info">
+                <p class="product-name">{{ product.name }}</p>
+                <p class="product-price">₹{{ product.price }}</p>
+                <!--<div class="rating">★★★★★</div>-->
+
+                <div class="product-actions">
+                    <form action="{% url 'add_to_cart' product.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-cart" style="background-color: #6C63FF; color: white; padding: 10px 20px; border: none; border-radius: 8px;">Add to Cart</button>
+                    </form>
+
+                    <form action="{% url 'buy_now' product.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-buy" style="height: 52px;">Buy Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No products available</p>
+        {% endfor %}
+    </div>
+</section>
+
+
+<!-- About Us Section -->
+<section id="about-container">
+    <div class="about-section">
+        <h2>About ART HUB</h2>
+        <p>
+            ART HUB is an innovative e-commerce platform that connects artists, buyers, and shopkeepers.
+            Our goal is to provide a seamless experience for artists to showcase and sell their paintings,
+            while also offering a marketplace for high-quality art materials.
+        </p>
+    </div>
+
+    <!-- Testimonials Section -->
+    <div class="testimonials">
+        <h3>What Our Users Say</h3>
+        <div class="testimonial-item">
+            <p>"ART HUB has completely changed the way I sell my artwork. The interface is user-friendly, and I love the exposure!"</p>
+            <span>- Emily Parker</span>
+        </div>
+        <div class="testimonial-item">
+            <p>"I found amazing paintings for my home decor at affordable prices. Highly recommend this platform!"</p>
+            <span>- Jason Smith</span>
+        </div>
+        <div class="testimonial-item">
+            <p>"As a shopkeeper, ART HUB helps me reach more artists who need quality art supplies. A game-changer!"</p>
+            <span>- Sarah Johnson</span>
+        </div>
+    </div>
+
+    <!-- Contact & Social Media Section -->
+    <div class="contact-info">
+        <h3 style="color:#6C63FF">Connect With Us</h3>
+        <p class="contact-details" style="color:#6C63FF">
+            Email: <a href="mailto:contact@arthub.com" style="color:black">contact@arthub.com</a> |
+            Phone: <a href="tel:+1234567890" style="color:black">+1 234 567 890</a> |
+             <!-- <a href="" style="color:#6C63FF" style="color:#6C63FF">Facebook</a> |
+            <a href="#" style="color:#6C63FF">Twitter</a> |-->
+            Instagram: <a href="Arthub@123" style="color:black">Arthub@123</a>
+        </p>
+    </div>
+</body>
+</html>

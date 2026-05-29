@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .seller-section {
+        padding: 20px;
+    }
+    .section-title {
+        margin: 20px 0 10px;
+        font-size: 24px;
+        color: #6C63FF;
+        font-weight: bold;
+    }
+    .seller-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+    .seller-card {
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 12px;
+        text-align: center;
+        transition: 0.3s;
+        background-color: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        cursor: pointer;
+    }
+    .seller-card:hover {
+        transform: translateY(-5px);
+    }
+    .seller-card img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+    .seller-card p {
+        margin: 5px 0;
+        font-weight: 500;
+    }
+</style>
+
+<!-- Artists Section -->
+<div class="seller-section">
+    <h2 class="section-title">Artists</h2>
+    <div class="seller-grid">
+        {% for artist in artists %}
+            {% if artist.id %}
+                <a href="{% url 'view_seller_profile' artist.id %}">
+                    <div class="seller-card">
+                        {% if artist.profile_image %}
+                            <img src="{{ artist.profile_image.url }}" alt="{{ artist.name }}">
+                        {% else %}
+                            <img src="{% static 'images/default_profile.jpg' %}" alt="Default Profile">
+                        {% endif %}
+                        <p>{{ artist.name }}</p>
+                    </div>
+                </a>
+            {% endif %}
+        {% empty %}
+            <p>No artists available.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Shopkeepers Section -->
+<div class="seller-section">
+    <h2 class="section-title">Shopkeepers</h2>
+    <div class="seller-grid">
+        {% for shopkeeper in shopkeepers %}
+            {% if shopkeeper.id %}
+                <a href="{% url 'view_seller_profile' shopkeeper.id %}">
+                    <div class="seller-card">
+                        {% if shopkeeper.profile_image %}
+                            <img src="{{ shopkeeper.profile_image.url }}" alt="{{ shopkeeper.name }}">
+                        {% else %}
+                            <img src="{% static 'images/default_profile.jpg' %}" alt="Default Profile">
+                        {% endif %}
+                        <p>{{ shopkeeper.name }}</p>
+                    </div>
+                </a>
+            {% endif %}
+        {% empty %}
+            <p>No shopkeepers available.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

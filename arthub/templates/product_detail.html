@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="product-detail-container" style="display: flex; flex-wrap: wrap; padding: 30px;">
+
+    <!-- Product Image -->
+    <div class="product-image" style="flex: 1; min-width: 300px; text-align: center;">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width:300px; height:auto; border-radius: 10px;">
+    </div>
+
+    <!-- Product Information -->
+    <div class="product-info" style="flex: 1; min-width: 300px; padding: 20px;">
+        <h2>{{ product.name }}</h2>
+        <p class="price" style="font-size: 20px; font-weight: bold;">Price: ₹{{ product.price }}</p>
+        <p class="description" style="margin-top: 10px;">{{ product.description }}</p>
+        <p class="rating" style="margin-top: 10px;">Rating: ★★★★★</p>
+
+        <!-- Buttons -->
+        <div class="buttons" style="margin-top: 20px; display: flex; gap: 10px;">
+            <form action="{% url 'add_to_cart' product.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn-cart" style="background-color: #6C63FF; color: white; padding: 10px 20px; border: none; border-radius: 8px;">Add to Cart</button>
+            </form>
+
+            <form action="{% url 'buy_now' product.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn-buy" style="background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 8px; height: 36px;">Buy Now</button>
+            </form>
+        </div>
+
+        <!-- Seller Info -->
+        <div class="seller-info" style="margin-top: 30px;">
+            <h4>Sold by:</h4>
+            <p>{{ product.uploaded_by.name }} ({{ product.uploaded_by.email }})</p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

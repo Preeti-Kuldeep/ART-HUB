@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Toggle Section -->
+<div class="toggle-container" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+    <button onclick="showCart()" id="toggle-cart" class="toggle-btn active">Cart</button>
+    <button onclick="showOrders()" id="toggle-orders" class="toggle-btn">Order History</button>
+</div>
+
+<!-- Cart Section -->
+<div id="cart-section" style="padding: 20px;">
+    {% if cart_items %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Price (₹)</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td><img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="product-image"></td>
+                <td>{{ item.product.name }}</td>
+                <td>₹{{ item.product.price }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>₹{{ item.get_total_price|floatformat:2 }}</td>
+                <td>
+    <div class="action-buttons">
+        <form action="{% url 'buy_now' item.product.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn-buy">Buy Now</button>
+        </form>
+
+        <form action="{% url 'remove_from_cart' item.product.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn-remove">Remove</button>
+        </form>
+    </div>
+</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>Grand Total: ₹{{ total_price|floatformat:2 }}</h3>
+    {% else %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+
+<!-- Order History Section -->
+<div id="order-section" style="display: none; padding: 20px;">
+    {% if order_history %}
+        {% for order in order_history %}
+        <div class="order-box" style="margin-bottom: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 10px;">
+            <div style="display: flex; align-items: flex-start; gap: 15px;">
+                <img src="{{ order.product.image.url }}" alt="{{ order.product.name }}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px;">
+                <div>
+                    <strong>{{ order.product.name }}</strong> - ₹{{ order.product.price }}<br>
+                    <small>Ordered on: {{ order.order_date|date:"Y-m-d" }}</small><br>
+                    <small>Delivery by: {{ order.expected_delivery_date }}</small><br>
+                    <small><strong>Address:</strong> {{ order.address }}</small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No past orders found.</p>
+    {% endif %}
+</div>
+
+<!-- Styling -->
+<style>
+.toggle-btn {
+    padding: 10px 20px;
+    border: none;
+    background-color: #6C63FF;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+}
+.toggle-btn.active {
+    background-color: #4a42e0;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.table th, .table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+.product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.btn-remove {
+    background-color: red;
+    color: white;
+    width: 100px;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+.btn-buy {
+    padding: 8px 12px;
+    width: 100px;
+    height: 35px;
+    font-size: 14px;
+    background-color: #6C63FF; /* Adjust color as needed */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.order-box {
+    background-color: #f2f2f2;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+@media screen and (max-width: 600px) {
+    .table thead {
+        display: none;
+    }
+    .table, .table tbody, .table tr, .table td {
+        display: block;
+        width: 100%;
+    }
+    .table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+    .table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 10px;
+        font-weight: bold;
+        text-align: left;
+    }
+    .action-buttons {
+        display: flex;
+        gap: 8px; /* Space between buttons */
+        justify-content: center;
+        align-items: center;
+    }
+    .action-buttons form {
+    margin: 0; /* Remove default spacing */
+}
+}
+</style>
+
+<!-- Toggle Script -->
+<script>
+function showCart() {
+    document.getElementById('cart-section').style.display = 'block';
+    document.getElementById('order-section').style.display = 'none';
+    document.getElementById('toggle-cart').classList.add('active');
+    document.getElementById('toggle-orders').classList.remove('active');
+}
+
+function showOrders() {
+    document.getElementById('cart-section').style.display = 'none';
+    document.getElementById('order-section').style.display = 'block';
+    document.getElementById('toggle-orders').classList.add('active');
+    document.getElementById('toggle-cart').classList.remove('active');
+}
+</script>
+
+{% endblock %}

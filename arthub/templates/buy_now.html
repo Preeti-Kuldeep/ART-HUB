@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div style="display: flex; flex-wrap: wrap; padding: 40px; gap: 30px;">
+
+    <!-- LEFT: Product Info -->
+    <div style="flex: 1; min-width: 300px; border: 1px solid #ccc; border-radius: 10px; padding: 20px;">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px;">
+        <h2>{{ product.name }}</h2>
+        <p><strong>Price:</strong> ₹{{ product.price }}</p>
+        <p><strong>Uploaded by:</strong> {{ product.uploaded_by.name }}</p>
+        <p><strong>Product ID:</strong> {{ product.id }}</p>
+    </div>
+
+    <!-- RIGHT: Order Form -->
+    <div style="flex: 2; min-width: 300px; border: 1px solid #ccc; border-radius: 10px; padding: 20px;">
+        <h2>Enter Shipping Details</h2>
+
+        <form method="POST" action="{% url 'place_order' product.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="product_id" value="{{ product.id }}">
+
+            
+            <label for="name">Full Name</label><br>
+            <input type="text" name="name" required style="width: 100%; padding: 8px;"><br><br>
+
+            <label for="email">Email</label><br>
+            <input type="email" name="email" required style="width: 100%; padding: 8px;"><br><br>
+
+            <label for="phone">Phone Number</label><br>
+            <input type="text" name="phone" required maxlength="10" style="width: 100%; padding: 8px;"><br><br>
+
+            <label for="address">Shipping Address</label><br>
+            <textarea name="address" rows="4" required style="width: 100%; padding: 8px;"></textarea><br><br>
+
+            <label><input type="checkbox" name="cod" required> Cash on Delivery</label><br><br>
+
+            <h4>Order Summary</h4>
+            <p><strong>Order ID:</strong> {{ order_id }}</p>
+            <p><strong>Product ID:</strong> {{ product.id }}</p>
+            <p><strong>Ordered On:</strong> {{ order_date }}</p>
+            <p><strong>Expected Delivery:</strong> {{ delivery_date|date:"d M Y" }}</p>
+
+            <button type="submit" style="background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 6px;">Place Order</button>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

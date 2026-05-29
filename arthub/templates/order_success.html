@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Placed</title>
+    <link rel="stylesheet" href="{% static 'css/success.css' %}">
+</head>
+<body>
+    <div class="success-container">
+        <img src="{{ order.product.image.url }}" alt="Order Successful" class="success-img" width="1000" height="170">
+        <p><strong>Product:</strong> {{ order.product.name }}</p>
+        <h2>Thank You! Your Order Has Been Placed</h2>
+
+        <div class="order-details">
+            <p><strong>Name:</strong> {{ order.name }}</p>
+            <p><strong>Phone:</strong> {{ order.phone }}</p>
+            <p><strong>Address:</strong> {{ order.address }}</p>
+            <p><strong>Order Date:</strong> {{ order.order_date|date:"d M Y, h:i A" }}</p>
+            <p><strong>Expected Delivery:</strong> {{ order.expected_delivery_date|date:"d M Y" }}</p>
+            <p><strong>Payment Mode:</strong> {{ order.payment_mode }}</p>
+        </div>
+
+        <a href="{% url 'home' %}" class="home-link">← Go back to Home Page</a>
+    </div>
+</body>
+</html>

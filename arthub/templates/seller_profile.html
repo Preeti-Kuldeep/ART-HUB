@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>Welcome, {{ request.user.name }}</h2>
+    <a href="{% url 'upload_product' %}">Upload New Product</a>
+
+    <h3>Your Uploaded Products:</h3>
+    <!--<div class="seller-profile">
+        <!-- Seller Image 
+        <div class="profile-image">
+            <img src="{{ user.profile_image.url }}" alt="Seller Image" style="width: 150px; height: 150px; border-radius: 50%;">
+        </div>
+    
+         Seller Info 
+        <div class="profile-info">
+            <h2>{{ user.name }}</h2>
+            <p><strong>Description:</strong> {{ user.description }}</p>
+            <p><strong>Total Products Uploaded:</strong> {{ products|length }}</p>
+        </div>
+    </div>-->
+    <div class="profile-section">
+        <!-- Seller Image + Edit Button -->
+        <div class="image-edit-block">
+            <img src="{{ user.profile_image.url }}" alt="Seller Image" class="profile-image">
+            <a href="{% url 'edit_profile' %}" class="edit-btn">Edit</a>
+        </div>
+    
+        <!-- Seller Description and Info -->
+        <div class="seller-details">
+            <h2>{{ user.name }}</h2>
+            <p><strong>Description:</strong> {{ user.description }}</p>
+            <p><strong>Total Products:</strong> {{ products.count }}</p>
+        </div>
+    </div>
+    
+    
+    <div class="gallery">
+        {% for product in products %}
+            <div class="gallery-item">
+                {% if product.id %}
+                    <a href="{% url 'product_detail' product.id %}">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    </a>
+                {% else %}
+                    <p><strong>Product not yet saved.</strong></p>
+                {% endif %}
+                <h4>{{ product.name }}</h4>
+                <p>Category: {{ product.category }}</p>
+                <p>Description: {{ product.description }}</p>
+                <p>Price: ₹{{ product.price }}</p>
+            </div>
+        {% empty %}
+            <p>No products uploaded yet.</p>
+        {% endfor %}
+        <div style="margin-top: 20px;">
+            <a href="{% url 'upload_product' %}" class="upload-btn">Upload New Product</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
