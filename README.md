@@ -1,8 +1,8 @@
-ART HUB 🎨
+\# 🎨 ART HUB
 
 
 
-ART HUB is an e-commerce platform designed for artists, buyers, and shopkeepers.
+ART HUB is a Django-based e-commerce platform designed for artists, buyers, and shopkeepers.
 
 
 
@@ -10,113 +10,221 @@ The platform allows artists to showcase and sell their paintings, buyers to brow
 
 
 
-Features
+\---
 
-User Registration and Login
 
-Artist Profile Management
 
-Shopkeeper Profile Management
+\## 🚀 Features
 
-Product Upload and Management
 
-Artwork and Art Material Listings
 
-Product Details Page
+\* User Registration and Login
 
-Shopping Cart Functionality
+\* Artist Profile Management
 
-Order Management
+\* Shopkeeper Profile Management
 
-User Profile Management
+\* Product Upload and Management
 
-Image Upload Support
+\* Artwork and Art Material Listings
 
-Admin Management
+\* Product Details Page
 
-Technology Stack
+\* Shopping Cart Functionality
 
-Frontend
+\* Order Management
 
-HTML
+\* User Profile Management
 
-CSS
+\* Image Upload Support
 
-JavaScript
+\* Admin Management
 
-Backend
 
-Django (Python)
 
-Database
+\---
 
-MySQL
 
-Project Structure
 
-User Authentication System
+\## 🛠 Technology Stack
 
-Product Management Module
 
-Cart Management Module
 
-Order Processing Module
+\### Frontend
 
-Profile Management Module
 
-Admin Panel
 
-Installation
+\* HTML
 
-Clone the repository
+\* CSS
+
+\* JavaScript
+
+
+
+\### Backend
+
+
+
+\* Django (Python)
+
+
+
+\### Database
+
+
+
+\* MySQL
+
+
+
+\---
+
+
+
+\## 📂 Project Structure
+
+
+
+\* User Authentication System
+
+\* Product Management Module
+
+\* Cart Management Module
+
+\* Order Processing Module
+
+\* Profile Management Module
+
+\* Admin Panel
+
+
+
+\---
+
+
+
+\## ⚙️ Installation
+
+
+
+\### Clone the Repository
+
+
+
+```bash
 
 git clone https://github.com/Preeti-Kuldeep/ART-HUB.git
 
-Navigate to the project folder
+```
+
+
+
+\### Navigate to Project Folder
+
+
+
+```bash
 
 cd ART-HUB
 
-Create and activate a virtual environment
+```
+
+
+
+\### Create and Activate Virtual Environment
+
+
+
+```bash
 
 python -m venv env
 
 env\\Scripts\\activate
 
-Install dependencies
+```
+
+
+
+\### Install Dependencies
+
+
+
+```bash
 
 pip install -r requirements.txt
 
-Configure the MySQL database settings in Django.
+```
 
-Run migrations
+
+
+\### Run Migrations
+
+
+
+```bash
 
 python manage.py migrate
 
-Start the server
+```
+
+
+
+\### Start the Server
+
+
+
+```bash
 
 python manage.py runserver
 
-Open the browser
+```
+
+
+
+Open:
+
+
+
+```text
 
 http://127.0.0.1:8000
 
-Future Enhancements
-
-Direct Messaging Between Users
-
-Live Auctions
-
-AI-Based Artwork Recommendations
-
-Advanced Search and Filtering
-
-Author
+```
 
 
 
-Preeti Kuldeep
+\---
+
+
+
+\## 🔮 Future Enhancements
+
+
+
+\* Direct Messaging Between Users
+
+\* Live Auctions
+
+\* AI-Based Artwork Recommendations
+
+\* Advanced Search and Filtering
+
+
+
+\---
+
+
+
+\## 👩‍💻 Author
+
+
+
+\*\*Preeti Kuldeep\*\*
 
 
 
 GitHub: https://github.com/Preeti-Kuldeep
+
+
 
